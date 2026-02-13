@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="RekodLampuJalan.PopUp.FeederViewPopUp"
+             Size="420,660"    
+            Color="Transparent"
+            CanBeDismissedByTappingOutsideOfPopup="False">
+    <ScrollView>
+        <Border StrokeThickness="1"
+            Stroke="#E0E0E0"
+            BackgroundColor="White"
+            StrokeShape="RoundRectangle 16"
+            Padding="20"
+            Margin="10">
+            <VerticalStackLayout Padding="20" Spacing="15">
+
+                <!-- Header -->
+                <Label x:Name="Jenis" Text="Feeder Pillar" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" TextColor="Black"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label Text="{Binding latittudeText}" FontSize="14" TextColor="Black"/>
+                    <Label Text="{Binding longitudeText}" FontSize="14" TextColor="Black"/>
+                </HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="{Binding address1Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                    <Label Text="{Binding address2Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                    <Label Text="{Binding address3Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                </VerticalStackLayout>
+                <!-- Data Entry Section -->
+                <Grid ColumnSpacing="10" RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- No Meter -->
+                    <Label Grid.Row="0" Text="No. Meter " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="0" Grid.Column="2" x:Name="NoMeter" Text="{Binding feederPillar.no_meter}" TextColor="Black"/>
+
+                    <!-- Nilai Amp -->
+                    <Label Grid.Row="1" Text="Nilai Amp " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="1" Grid.Column="2">
+                        <Label x:Name="NilaiAmp" Text="{Binding feederPillar.nilai_amp}" TextColor="Black"/>
+                        <Label Text=" A" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Nilai Phase R -->
+                    <Label Grid.Row="2" Text="Phase R " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="2" Grid.Column="2">
+                        <Label x:Name="NilaiPhaseR" Text="{Binding feederPillar.nilai_phase_r}" TextColor="Black"/>
+                        <Label Text=" A" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Nilai Phase Y -->
+                    <Label Grid.Row="3" Text="Phase Y " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="3" Grid.Column="2">
+                        <Label x:Name="NilaiPhaseY" Text="{Binding feederPillar.nilai_phase_y}" TextColor="Black"/>
+                        <Label Text=" A" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Nilai Phase B -->
+                    <Label Grid.Row="4" Text="Phase B " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="4" Grid.Column="2">
+                        <Label x:Name="NilaiPhaseB" Text="{Binding feederPillar.nilai_phase_b}" TextColor="Black"/>
+                        <Label Text=" A" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Status Pintu -->
+                    <Label Grid.Row="5" Text="Status Pintu " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="5" Grid.Column="2" x:Name="StatusPintu" Text="{Binding feederPillar.status_pintu}" TextColor="Black"/>
+
+                    <!-- Footing -->
+                    <Label Grid.Row="6" Text="Footing " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="6" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="6" Grid.Column="2" x:Name="Footing" Text="{Binding feederPillar.footing}" TextColor="Black"/>
+
+                    <!-- Komen -->
+                    <Label Grid.Row="7" Text="Komen " FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="7" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" TextColor="Black"/>
+                    <Label Grid.Row="7" Grid.Column="2" x:Name="Komen" Text="{Binding feederPillar.komen}" TextColor="Black"/>
+
+                    <!-- Attachment -->
+                    <!--<Label Grid.Row="8" Text="Lampiran " FontAttributes="Bold" FontSize="13" VerticalOptions="Start"/>
+                    <Label Grid.Row="8" Grid.Column="1" Text=":" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" />-->
+
+                </Grid>
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <!-- Attachment Buttons -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Gambar Depan" FontSize="12" 
+                            Command="{Binding OnAttachmentImageClicked}"
+                            CommandParameter="image1"
+                            Padding="5" HeightRequest="35" WidthRequest="110"
+                                BackgroundColor="#007AFF"/>
+                        <Button Text="Gambar Kiri" FontSize="12" 
+                            Command="{Binding OnAttachmentImageClicked}"
+                            CommandParameter="image2"
+                            Padding="5" HeightRequest="35" WidthRequest="110"
+                                BackgroundColor="#007AFF"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Gambar Kanan" FontSize="12" 
+                            Command="{Binding OnAttachmentImageClicked}"
+                            CommandParameter="image3"
+                            Padding="5" HeightRequest="35" WidthRequest="110"
+                                BackgroundColor="#007AFF"/>
+                        <Button Text="Gambar Belakang" FontSize="12" 
+                            Command="{Binding OnAttachmentImageClicked}"
+                            CommandParameter="image4"
+                            Padding="5" HeightRequest="35" WidthRequest="110"
+                                BackgroundColor="#007AFF"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <Grid>
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        
+                        <Button Text="Close"
+     Clicked="OnCloseClicked"
+     BackgroundColor="#9E9E9E"
+     TextColor="White"
+     CornerRadius="10"
+     FontAttributes="Bold"
+     HeightRequest="45"
+     WidthRequest="100"
+     Margin="10,10,0,0"/>
+
+                    </HorizontalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</toolkit:Popup>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="RekodLampuJalan.PopUp.LoginPopUp"
+               Color="Transparent"
+               Size="360,300"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <ScrollView>
+        <Grid Padding="20" RowSpacing="0">
+            <Border StrokeThickness="1"
+                    Stroke="#E0E0E0"
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="#00000033" Offset="0,4" Radius="8" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Login"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" TextColor="Black"/>
+
+                    <Grid RowSpacing="12" ColumnSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Username:"
+                               FontSize="14"
+                               VerticalOptions="Center" TextColor="Black"/>
+                        <Entry Grid.Row="0" Grid.Column="1"
+                               x:Name="userName"
+                               Placeholder="Enter your username" TextColor="Black"/>
+
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Password:"
+                               FontSize="14"
+                               VerticalOptions="Center" TextColor="Black" />
+                        <!--<Entry Grid.Row="1" Grid.Column="1"
+                               x:Name="password"
+                               Placeholder="Enter your password"
+                               IsPassword="True" TextColor="Black"/>-->
+                        <Grid Grid.Row="1" Grid.Column="1"  VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="25"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!-- Password Entry -->
+                            <Entry x:Name="passwordEntry"
+           Grid.Column="0"
+           Placeholder="Enter your password"
+           IsPassword="True"
+           TextColor="Black"
+           VerticalOptions="Center" />
+
+                            <!-- Eye Button -->
+                            <ImageButton x:Name="togglePasswordButton"
+                 Grid.Column="1"
+                 Source="show.png"
+                 BackgroundColor="Transparent"
+                 Clicked="OnTogglePasswordClicked"
+                    HeightRequest="20"
+                 Aspect="AspectFit"
+                 Padding="0"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"/>
+                        </Grid>
+                    </Grid>
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Button Text="Login"
+                            Clicked="OnLoginClicked"
+                            BackgroundColor="#007AFF"
+                            TextColor="White"
+                            CornerRadius="10"
+                            FontAttributes="Bold"
+                            HeightRequest="45" 
+                                WidthRequest="100"
+                                Margin="10,10,0,0"/>
+                        <Button Text="Cancel"
+         Clicked="OnCancelClicked"
+         BackgroundColor="#9E9E9E"
+         TextColor="White"
+         CornerRadius="10"
+         FontAttributes="Bold"
+         HeightRequest="45"
+         WidthRequest="100"
+         Margin="10,10,0,0"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+            <Grid            
+            BackgroundColor="#80000000"
+            IsVisible="False"
+            x:Name="loadingGrid"
+            InputTransparent="False">
+                <!-- This blocks interaction -->
+
+                <ActivityIndicator 
+                    x:Name="loadingSpinner"
+                IsRunning="False" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                Color="White" 
+                WidthRequest="50"
+                HeightRequest="50"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</toolkit:Popup>

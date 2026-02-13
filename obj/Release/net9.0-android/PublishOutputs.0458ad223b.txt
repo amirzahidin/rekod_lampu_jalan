@@ -1,0 +1,4 @@
+C:\Users\Alia&Amir\source\repos\RekodLampuJalan\bin\Release\net9.0-android\publish\com.vertbyte.streetnode-Signed.aab
+C:\Users\Alia&Amir\source\repos\RekodLampuJalan\bin\Release\net9.0-android\publish\com.vertbyte.streetnode.aab
+C:\Users\Alia&Amir\source\repos\RekodLampuJalan\bin\Release\net9.0-android\publish\com.vertbyte.streetnode-Signed.apk
+C:\Users\Alia&Amir\source\repos\RekodLampuJalan\bin\Release\net9.0-android\publish\_Microsoft.Android.Resource.Designer.dll

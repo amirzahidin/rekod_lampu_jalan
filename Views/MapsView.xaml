@@ -1,0 +1,220 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Maui.GoogleMaps;assembly=Maui.GoogleMaps"
+             x:Class="RekodLampuJalan.Views.MapsView"
+             BackgroundColor="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search bar with border and shadow -->
+        <Border Grid.Row="0"
+                Stroke="#DDD"
+                StrokeThickness="1"
+                BackgroundColor="Transparent"
+                 >
+            <VerticalStackLayout>
+                <SearchBar x:Name="SearchBox"
+                       Placeholder="Cari lokasi..."
+                       Text="{Binding SearchText}"
+                       SearchCommand="{Binding searchLocationAsync}"
+                       FontSize="14"
+                       BackgroundColor="Transparent" TextColor="Black"/>
+
+                <!--<HorizontalStackLayout Padding="10" Spacing="10">
+                    <Button Text="Street" Clicked="OnStreetClicked"/>
+                    <Button Text="Satellite" Clicked="OnSatelliteClicked"/>
+                    <Button Text="Hybrid" Clicked="OnHybridClicked"/>
+                    <Button Text="Terrain" Clicked="OnTerrainClicked"/>
+                </HorizontalStackLayout>-->
+            </VerticalStackLayout>
+
+            
+        </Border>
+
+        <!-- Google Map -->
+        <maps:Map x:Name="map" Grid.Row="1" VerticalOptions="FillAndExpand" MapType="Street">
+            <maps:Map.GestureRecognizers>
+                <DropGestureRecognizer AllowDrop="True" Drop="OnDrop"/>
+            </maps:Map.GestureRecognizers>
+        </maps:Map>
+        <Border Grid.Row="1" Padding="0"  StrokeShape="RoundRectangle 20" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Button x:Name="btnStreet" Text="Street" Clicked="OnMapTypeButtonClicked" CornerRadius="0" FontSize="Micro"/>
+                <Button x:Name="btnSatellite" Text="Satellite" Clicked="OnMapTypeButtonClicked" CornerRadius="0" FontSize="Micro"/>
+                <Button x:Name="btnHybrid" Text="Hybrid" Clicked="OnMapTypeButtonClicked" CornerRadius="0" FontSize="Micro"/>
+                <Button x:Name="btnTerrain" Text="Terrain" Clicked="OnMapTypeButtonClicked" CornerRadius="0" FontSize="Micro"/>
+            </HorizontalStackLayout>
+        </Border>
+        <!-- Fly Cable Mode Label -->
+        <Border Grid.Row="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Margin="10"
+                BackgroundColor="#66000000"
+                StrokeShape="RoundRectangle 10"
+                IsVisible="{Binding IsSFlyCableMode}">
+            <Label Text="{Binding AddFlyCableText}"
+                   TextColor="White"
+                   Padding="5,2"
+                   FontAttributes="Bold"/>
+        </Border>
+        <VerticalStackLayout Grid.Row="1">
+            <!-- Logout Button -->
+            <Button Command="{Binding loginClicked}"
+                Text="{Binding LoginButtonText}"
+                BackgroundColor="#555555"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="20"
+                HeightRequest="40"
+                Padding="10,0"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="10"
+                />
+
+            <!-- Summary Button -->
+            <Button Command="{Binding summaryButtonClicked}"
+                Text="Summary"
+                IsVisible="{Binding IsSummaryVisible}"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="20"
+                HeightRequest="40"
+                Padding="10,0"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="10"
+                />
+        </VerticalStackLayout>
+
+        <!-- Refresh Button -->
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="End"
+                VerticalOptions="Start">
+            <Border Stroke="#007AFF"
+                StrokeThickness="1"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 20"
+                Margin="10"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Grid.Row="1"
+                WidthRequest="50"
+                HeightRequest="50"
+                >
+
+                <ImageButton Source="refreshbutton.png"
+                         Command="{Binding refreshAll}"
+                         BackgroundColor="Transparent"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         Padding="5"/>
+            </Border>
+            <!-- Current Location Button -->
+            <Border Stroke="#007AFF"
+                StrokeThickness="1"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 20"
+                Margin="10,10,10,10"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Grid.Row="1"
+                WidthRequest="50"
+                HeightRequest="50"
+                >
+
+                <ImageButton Source="currentlocation.png"
+                         Command="{Binding setCurrentLocation}"
+                         BackgroundColor="Transparent"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         Padding="5"/>
+            </Border>
+        </VerticalStackLayout>
+
+
+        <!-- Tools Panel (Icon buttons + Switch) -->
+        <Grid Grid.Row="1"
+              Padding="10"
+              HorizontalOptions="Start"
+              VerticalOptions="Center"
+              IsVisible="{Binding IsLogin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Icon Stack -->
+            <Border Grid.Row="0"
+                    BackgroundColor="#F0F0F0"
+                    Stroke="#DDD"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="10"
+                    
+                    IsVisible="{Binding IsPinStackLayoutVisible}">
+                <VerticalStackLayout Spacing="15">
+                    <Image Source="streetdoublearmlogo.png" WidthRequest="36" HeightRequest="36">
+                        <Image.GestureRecognizers>
+                            <DragGestureRecognizer DragStarting="OnDragStarting"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="streetsinglearmlogo.png" WidthRequest="36" HeightRequest="36">
+                        <Image.GestureRecognizers>
+                            <DragGestureRecognizer DragStarting="OnDragStarting"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Source="feederpillarlogo.png" WidthRequest="36" HeightRequest="36">
+                        <Image.GestureRecognizers>
+                            <DragGestureRecognizer DragStarting="OnDragStarting"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Fly Cable + Switch -->
+            <Border Grid.Row="1"
+                    Margin="0,20,0,0"
+                    BackgroundColor="#F0F0F0"
+                    Stroke="#DDD"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 15"
+                    Padding="10"
+                    >
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Image Source="flycable.png" WidthRequest="36" HeightRequest="36"/>
+                    <Switch x:Name="MySwitch" IsToggled="{Binding IsSwitchFlyCableToggled}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+        <Grid
+          
+            BackgroundColor="#80000000"
+            IsVisible="{Binding IsBusy}"
+            InputTransparent="False">
+
+        </Grid>
+        <Grid  Grid.Row="1"
+           
+            BackgroundColor="#80000000"
+            IsVisible="{Binding IsBusy}"
+            InputTransparent="False">
+            <!-- This blocks interaction -->
+
+            <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                Color="White" 
+                WidthRequest="50"
+                HeightRequest="50"/>
+        </Grid>
+    </Grid>
+</ContentPage>

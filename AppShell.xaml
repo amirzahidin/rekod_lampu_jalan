@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RekodLampuJalan.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RekodLampuJalan.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Title="RekodLampuJalan">
+
+    <ShellContent
+        Title="Splash Screen"
+        ContentTemplate="{DataTemplate local:SplashScreen}"
+        Route="SplashScreen" />
+    <ShellContent
+        Title="Map View"
+        ContentTemplate="{DataTemplate local:MapsView}"
+        Route="MapsView" />
+    <ShellContent
+        Title="Summary Page"
+        ContentTemplate="{DataTemplate local:SummaryPage}"
+        Route="SummaryPage" />
+
+
+</Shell>

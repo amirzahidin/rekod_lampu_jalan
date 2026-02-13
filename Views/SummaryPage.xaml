@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Maui.GoogleMaps;assembly=Maui.GoogleMaps"
+             x:Class="RekodLampuJalan.Views.SummaryPage"
+             Title="Address Summary"
+            >
+    <!-- assuming you use a viewmodel -->
+    <Grid>
+    <Grid RowDefinitions="Auto, Auto, *" BackgroundColor="#F2F2F7">
+
+        <!-- Address Selection Section -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Grid>
+                    <Button
+            Text="Back"
+            Command="{Binding BackCommand}"
+            BackgroundColor="#555555"
+            TextColor="White"
+            CornerRadius="12"
+            HeightRequest="45"
+            Margin="0"
+            HorizontalOptions="Start" />
+                        <!-- Refresh Button -->
+                        <Border Stroke="#007AFF"
+                StrokeThickness="1"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 20"
+                Margin="0"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="50"
+                HeightRequest="50"
+                >
+
+                            <ImageButton Source="refreshbutton.png"
+                         Command="{Binding refreshAll}"
+                         BackgroundColor="Transparent"
+                         WidthRequest="40"
+                         HeightRequest="40"
+                         Padding="5"/>
+                        </Border>
+                        <!--<Label Text="Address Selection"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#1C1C1E" />-->
+
+                </Grid>
+
+                <Border Stroke="#DDDDDD"
+                        StrokeThickness="1"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="20,10,20,10">
+                    <VerticalStackLayout Spacing="0">
+                        <!-- Negeri -->
+                        <Label Text="Negeri" FontAttributes="Bold" FontSize="14" TextColor="#333"/>
+                        <Picker x:Name="NegeriPicker" Title="Select a State"
+                                ItemsSource="{Binding NegeriList}"
+                                ItemDisplayBinding="{Binding nama}"
+                                SelectedItem="{Binding selectedNegeri}"
+                                TextColor="Black"
+                                />
+
+                        <!-- Poskod -->
+                        <Label Text="Poskod" FontAttributes="Bold" FontSize="14" TextColor="#333" />
+                        <Picker x:Name="PoskodPicker" Title="Select a Postcode"
+                                ItemsSource="{Binding PoskodList}"
+                                ItemDisplayBinding="{Binding nama}"
+                                SelectedItem="{Binding selectedPoskod}" 
+                                IsEnabled="{Binding IsEnPoskod}" TextColor="Black"/>
+
+                        <!-- Daerah -->
+                        <Label Text="Daerah" FontAttributes="Bold" FontSize="14" TextColor="#333" />
+                        <Picker x:Name="DaerahPicker" Title="Select a District"
+                                ItemsSource="{Binding DaerahList}"
+                                ItemDisplayBinding="{Binding nama}"
+                                SelectedItem="{Binding selectedDaerah}" 
+                                IsEnabled="{Binding IsEnDaerah}" TextColor="Black"/>
+
+                        <!-- Bandar -->
+                        <Label Text="Bandar" FontAttributes="Bold" FontSize="14" TextColor="#333" />
+                        <Picker x:Name="BandarPicker" Title="Select a Town/City"
+                                ItemsSource="{Binding BandarList}"
+                                ItemDisplayBinding="{Binding nama}"
+                                SelectedItem="{Binding selectedBandar}"
+                                IsEnabled="{Binding IsEnDaerah}" TextColor="Black"/>
+
+                        <!-- Jalan -->
+                        <Label Text="Nama Jalan" FontAttributes="Bold" FontSize="14" TextColor="#333" />
+                        <Picker x:Name="JalanPicker" Title="Select a Street"
+                                ItemsSource="{Binding JalanList}"
+                                ItemDisplayBinding="{Binding nama}"
+                                SelectedItem="{Binding selectedJalan}"
+                                IsEnabled="{Binding IsEnJalan}" TextColor="Black"/>
+
+                        <Button Text="Retrieve Coordinates"
+                                BackgroundColor="#007AFF"
+                                TextColor="White"
+                                CornerRadius="12"
+                                HeightRequest="40"
+                                FontSize="14"
+                                Command="{Binding searchClicked}" />
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Toggle Button -->
+        <Button Grid.Row="1"
+                Text="{Binding ToggleButtonText}"
+                Command="{Binding ToggleMapSummaryCommand}"
+                Margin="30,0"
+                BackgroundColor="#34C759"
+                TextColor="White"
+                CornerRadius="12"
+                FontSize="14"
+                HeightRequest="40" />
+
+        <!-- Map or Summary -->
+        <ContentView Grid.Row="2" Margin="10">
+            <ContentView.Content>
+                <Grid>
+                    <!-- Map View -->
+                    <maps:Map x:Name="map"
+                              IsVisible="{Binding IsMapVisible}"
+                              VerticalOptions="FillAndExpand"
+                              MapType="Street" />
+
+                    <!-- Summary Table -->
+                    <VerticalStackLayout IsVisible="{Binding IsSummaryVisible}"
+                                         BackgroundColor="White"
+                                         Padding="20"
+                                         Spacing="15">
+                        <Label Text="Jumlah Item"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" TextColor="Black"/>
+
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                                <Label Text="Tiang Long Single Arm:" TextColor="Black"/>
+                                <Label Text="{Binding lampuSingleCount}" Grid.Column="1"  TextColor="Black"/>
+
+                                <Label Text="Tiang Long Double Arm" Grid.Row="1" TextColor="Black"/>
+                                <Label Text="{Binding lampuDoubleCount}" Grid.Row="1" Grid.Column="1" TextColor="Black"/>
+
+                                <Label Text="Fly Cable:" Grid.Row="2" TextColor="Black"/>
+                                <Label Text="{Binding flyCableCount}" Grid.Row="2" Grid.Column="1" TextColor="Black"/>
+
+                                <Label Text="Feeder Pillar:" Grid.Row="3" TextColor="Black"/>
+                                <Label Text="{Binding feederPillarCount}" Grid.Row="3" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+            </ContentView.Content>
+        </ContentView>
+
+    </Grid>
+        <Grid
+           
+            BackgroundColor="#80000000"
+            IsVisible="{Binding IsBusy}"
+            InputTransparent="False">
+            <!-- This blocks interaction -->
+
+            <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                Color="White" 
+                WidthRequest="50"
+                HeightRequest="50"/>
+        </Grid>
+    </Grid>
+</ContentPage>

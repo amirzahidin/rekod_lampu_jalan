@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="RekodLampuJalan.PopUp.ClickPinViewPopUp"
+            Size="420,800"    
+            Color="Transparent"
+            CanBeDismissedByTappingOutsideOfPopup="False">
+    <ScrollView>
+        <Border StrokeThickness="1"
+            Stroke="#E0E0E0"
+            BackgroundColor="White"
+            StrokeShape="RoundRectangle 16"
+            Padding="20"
+            Margin="10">
+
+            <VerticalStackLayout Spacing="5">
+
+                <Label x:Name="Jenis"
+                   Text="{Binding JenisItem}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" TextColor="Black"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label Text="{Binding latittudeText}" FontSize="14" TextColor="Black"/>
+                    <Label Text="{Binding longitudeText}" FontSize="14" TextColor="Black"/>
+                </HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="{Binding address1Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                    <Label Text="{Binding address2Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                    <Label Text="{Binding address3Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                </VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Text="Gambar Penuh Tiang Lampu:"
+           FontSize="14"
+           VerticalOptions="Center" TextColor="Black"/>
+                    <Button ImageSource="attachment_icon.png"
+            Command="{Binding OnAttachmentImageClicked}"
+            CommandParameter="jenis_item"
+            WidthRequest="30"
+            HeightRequest="30"
+            BackgroundColor="Transparent"
+            Margin="5,0,0,0"/>
+                </HorizontalStackLayout>
+                <!-- Start of Grid Form -->
+                <Grid ColumnSpacing="10" RowSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!-- Repeated UI Block (for each field): -->
+                    <!-- Example for Jenis Lampu -->
+                    <Label Text="Jenis Lampu" Grid.Row="0" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding JenisLampu}" VerticalOptions="Center" TextColor="Black"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="3"
+                        ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}"
+                        CommandParameter="jenis_lampu"
+                        BackgroundColor="Transparent"
+                        WidthRequest="30"
+                        HeightRequest="30" />
+
+                    <!-- Copy and increment Grid.Row for each additional field -->
+                    <!-- Jenama Lampu -->
+                    <Label Grid.Row="1" Text="Jenama Lampu" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding JenamaLampu}" VerticalOptions="Center" TextColor="Black"/>
+
+                    <Button Grid.Row="1" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenama_lampu"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Continue other fields similarly -->
+                    <!-- Panjang Lengan Lampu -->
+                    <Label Grid.Row="2" Text="Panjang Lengan&#10;Lampu" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="2" Grid.Column="2">
+                        <Label Text="{Binding PanjangLenganLampu}" VerticalOptions="Center" TextColor="Black"/>
+                        <Label Text=" m" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    
+          
+                    <Button Grid.Row="2" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="panjang_lengan_lampu"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Tinggi Tiang -->
+                    <Label Grid.Row="3" Text="Tinggi Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="3" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <HorizontalStackLayout Grid.Row="3" Grid.Column="2">
+                        <Label  Text="{Binding TinggiTiang}" VerticalOptions="Center" TextColor="Black"/>
+                        <Label  Text=" m" VerticalOptions="Center" TextColor="Black"/>
+                    </HorizontalStackLayout>
+                    
+
+                    <Button Grid.Row="3" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="tinggi_tiang"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Jenis Tiang -->
+                    <Label Grid.Row="4" Text="Jenis Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="4" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="4" Grid.Column="2" Text="{Binding JenisTiang}" VerticalOptions="Center" TextColor="Black"/>
+
+                    <Button Grid.Row="4" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenis_tiang"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Material Tiang -->
+                    <Label Grid.Row="5" Text="Material Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="5" Grid.Column="2" Text="{Binding MaterialTiang}" VerticalOptions="Center" TextColor="Black"/>
+   
+                    <Button Grid.Row="5" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="material_tiang"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Jenama Tiang -->
+                    <Label Grid.Row="6" Text="Jenama Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="6" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="6" Grid.Column="2" Text="{Binding JenamaTiang}" VerticalOptions="Center" TextColor="Black"/>
+
+                    <Button Grid.Row="6" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenama_tiang"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Jenis Pintu -->
+                    <Label Grid.Row="7" Text="Jenis Pintu&#10;Penyelenggaraan" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="7" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="7" Grid.Column="2" Text="{Binding JenisPintuPenyelenggaraan}" VerticalOptions="Center" TextColor="Black"/>
+        
+                    <Button Grid.Row="7" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenis_pintu_penyelenggaraan"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                    <!-- Saiz Pintu -->
+                    <Label Grid.Row="8" Text="Saiz Pintu&#10;Penyelenggaraan" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="8" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="8" Grid.Column="2" Text="{Binding SaizPintuPenyelenggaraan}" VerticalOptions="Center" TextColor="Black"/>
+                    
+                    <Button Grid.Row="8" Grid.Column="3" ImageSource="attachment_icon.png"
+                        Command="{Binding OnAttachmentImageClicked}" CommandParameter="saiz_pintu_penyelenggaraan"
+                        BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+                    <!--komen-->
+                    <Label Grid.Row="9" Text="Komen" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Text=":" Grid.Row="9" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                    <Label Grid.Row="9" Grid.Column="2" Text="{Binding Komen}" VerticalOptions="Center" TextColor="Black"/>
+                </Grid>
+                <Grid>
+
+
+                    <Button Text="Close"
+     Clicked="OnCloseClicked"
+     BackgroundColor="#007AFF"
+     TextColor="White"
+     CornerRadius="10"
+     FontAttributes="Bold"
+     HeightRequest="45"
+     WidthRequest="100"
+     Margin="10,10,0,0"/>
+
+                </Grid>
+
+
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</toolkit:Popup>

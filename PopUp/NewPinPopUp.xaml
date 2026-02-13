@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:common="clr-namespace:RekodLampuJalan.Utils"
+               x:Class="RekodLampuJalan.PopUp.NewPinPopUp"
+               Size="420,800"
+               Color="Transparent"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <common:LengthToStringConverter x:Key="LengthConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+
+    <ScrollView>
+        <Grid>
+            <Border StrokeThickness="1"
+         Stroke="#E0E0E0"
+         BackgroundColor="White"
+         StrokeShape="RoundRectangle 16"
+         Padding="20"
+         Margin="10">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="bordertapped"/>
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="10">
+
+                    <Label x:Name="Jenis"
+                Text="{Binding JenisItem}"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" TextColor="Black"/>
+
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                            <Label Text="{Binding latittudeText}" FontSize="14" TextColor="Black"/>
+                            <Label Text="{Binding longitudeText}" FontSize="14" TextColor="Black"/>
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding address1Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                        <Label Text="{Binding address2Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                        <Label Text="{Binding address3Text}" FontSize="14" HorizontalOptions="Center" TextColor="Black"/>
+                        <Button Text="Ubah Alamat"
+ 
+  BackgroundColor="#007AFF"
+  TextColor="White"
+  CornerRadius="10"
+  FontAttributes="Bold"
+  HeightRequest="45"
+  WidthRequest="100"
+  Margin="0,10,0,0" Command="{Binding OnUbahaAlamatClicked}"/>
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Label Text="Gambar Penuh Tiang Lampu:"
+        FontSize="14"
+        VerticalOptions="Center" TextColor="Black"/>
+                        <Button ImageSource="attachment_icon.png"
+         Command="{Binding OnAttachmentImageClicked}"
+         CommandParameter="jenis_item"
+         WidthRequest="30"
+         HeightRequest="30"
+         BackgroundColor="Transparent"
+         Margin="5,0,0,0"/>
+                    </HorizontalStackLayout>
+                    <!-- Start of Grid Form -->
+                    <Grid ColumnSpacing="10" RowSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!-- Repeated UI Block (for each field): -->
+                        <!-- Example for Jenis Lampu -->
+   
+                        <Label Text="Jenis Lampu"  VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="2">
+                            
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryJenis_Lampu"
+               Placeholder="Pilih Jenis Lampu"
+               TextChanged="OnEntryTextChangedJenis_Lampu"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Jenis_Lampu}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedJenis_Lampu"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListJenis_Lampu" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedJenis_Lampu"
+ItemsSource="{Binding DropDownItems.Jenis_Lampu}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+                            
+
+                        </VerticalStackLayout>
+
+                        <!--<Picker Grid.Row="0" Grid.Column="2"
+                     x:Name="JenisLampu"
+                     Title="Pilih jenis lampu"
+                     ItemsSource="{Binding DropDownItems.Jenis_Lampu}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Jenis_Lampu}" TextColor="Black"/>-->
+                        <Button Grid.Row="0" Grid.Column="3"
+                     ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}"
+                     CommandParameter="jenis_lampu"
+                     BackgroundColor="Transparent"
+                     WidthRequest="30"
+                     HeightRequest="30" />
+
+                        <!-- Copy and increment Grid.Row for each additional field -->
+                        <!-- Jenama Lampu -->
+                        <Label Grid.Row="1" Text="Jenama Lampu" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="1" Grid.Column="2" x:Name="JenamaLampu"
+                     Title="Pilih jenama"
+                     ItemsSource="{Binding DropDownItems.Jenama_Lampu}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Jenama_Lampu}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryJenama_Lampu"
+               Placeholder="Pilih Jenama Lampu"
+               TextChanged="OnEntryTextChangedJenama_Lampu"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Jenama_Lampu}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedJenama_Lampu"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListJenama_Lampu" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedJenama_Lampu"
+ItemsSource="{Binding DropDownItems.Jenama_Lampu}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="1" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenama_lampu"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30" />
+
+                        <!-- Continue other fields similarly -->
+                        <!-- Panjang Lengan Lampu -->
+                        <Label Grid.Row="2" Text="Panjang Lengan&#10;Lampu" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="2" Grid.Column="2" x:Name="PanjangLenganLampu"
+                     Title="Pilih panjang"
+                     ItemsSource="{Binding DropDownItems.Panjang_Lengan_Lampu}"
+                     ItemDisplayBinding="{Binding Item, Converter={StaticResource LengthConverter}}"
+                     SelectedItem="{Binding dropDownSelectedItem.Panjang_Lengan_Lampu}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="2">
+
+                            <!-- Entry -->
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Text="m" VerticalOptions="Center" TextColor="Black"></Label>
+                                <Entry x:Name="CustomPickerEntryPanjang_Lengan_Lampu" Keyboard="Numeric"
+               Placeholder="Pilih Panjang Lengan Lampu"
+               TextChanged="OnEntryTextChangedPanjang_Lengan_Lampu"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Panjang_Lengan_Lampu}" TextColor="Black">
+                                    <Entry.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEntryTappedPanjang_Lengan_Lampu"></TapGestureRecognizer>
+                                    </Entry.GestureRecognizers>
+                                </Entry>
+                                
+                            </Grid>
+
+
+                            <CollectionView x:Name="SuggestionListPanjang_Lengan_Lampu" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedPanjang_Lengan_Lampu"
+                                    
+ItemsSource="{Binding DropDownItems.Panjang_Lengan_Lampu}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="2" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="panjang_lengan_lampu"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                        <!-- Tinggi Tiang -->
+                        <Label Grid.Row="3" Text="Tinggi Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="3" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="3" Grid.Column="2" x:Name="TinggiTiang"
+                     Title="Pilih tinggi"
+                     ItemsSource="{Binding DropDownItems.Tinggi_Tiang}"
+                     ItemDisplayBinding="{Binding Item, Converter={StaticResource LengthConverter}}"
+                     SelectedItem="{Binding dropDownSelectedItem.Tinggi_Tiang}"  TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="3" Grid.Column="2">
+
+                            <!-- Entry -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Text="m" VerticalOptions="Center" TextColor="Black"></Label>
+                                <Entry x:Name="CustomPickerEntryTinggi_Tiang" Keyboard="Numeric"
+               Placeholder="Pilih Tinggi Tiang"
+               TextChanged="OnEntryTextChangedTinggi_Tiang"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Tinggi_Tiang}" TextColor="Black">
+                                    <Entry.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnEntryTappedTinggi_Tiang" ></TapGestureRecognizer>
+                                    </Entry.GestureRecognizers>
+                                </Entry>
+                            </Grid>
+                            <CollectionView x:Name="SuggestionListTinggi_Tiang" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedTinggi_Tiang"
+ItemsSource="{Binding DropDownItems.Tinggi_Tiang}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="3" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="tinggi_tiang"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                        <!-- Jenis Tiang -->
+                        <Label Grid.Row="4" Text="Jenis Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="4" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="4" Grid.Column="2" x:Name="JenisTiang"
+                     Title="Pilih jenis tiang"
+                     ItemsSource="{Binding DropDownItems.Jenis_Tiang}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Jenis_Tiang}"  TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="4" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryJenis_Tiang"
+               Placeholder="Pilih Jenis Tiang"
+               TextChanged="OnEntryTextChangedJenis_Tiang"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Jenis_Tiang}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedJenis_Tiang"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListJenis_Tiang" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedJenis_Tiang"
+ItemsSource="{Binding DropDownItems.Jenis_Tiang}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="4" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenis_tiang"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                        <!-- Material Tiang -->
+                        <Label Grid.Row="5" Text="Material Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="5" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="5" Grid.Column="2" x:Name="MaterialTiang"
+                     Title="Pilih material"
+                     ItemsSource="{Binding DropDownItems.Material_Tiang}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Material_Tiang}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="5" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryMaterial_Tiang"
+               Placeholder="Pilih Material Tiang"
+               TextChanged="OnEntryTextChangedMaterial_Tiang"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Material_Tiang}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedMaterial_Tiang"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListMaterial_Tiang" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedMaterial_Tiang"
+ItemsSource="{Binding DropDownItems.Material_Tiang}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="5" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="material_tiang"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                        <!-- Jenama Tiang -->
+                        <Label Grid.Row="6" Text="Jenama Tiang" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="6" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="6" Grid.Column="2" x:Name="JenamaTiang"
+                     Title="Pilih jenama"
+                     ItemsSource="{Binding DropDownItems.Jenama_Tiang}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Jenama_Tiang}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="6" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryJenama_Tiang"
+               Placeholder="Pilih Jenama Tiang"
+               TextChanged="OnEntryTextChangedJenama_Tiang"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Jenama_Tiang}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedJenama_Tiang"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListJenama_Tiang" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedJenama_Tiang"
+ItemsSource="{Binding DropDownItems.Jenama_Tiang}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="6" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenama_tiang"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+                        <!-- Jenis Pintu -->
+                        <Label Grid.Row="7" Text="Jenis Pintu&#10;Penyelenggaraan" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="7" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="7" Grid.Column="2" x:Name="JenisPintuPenyelenggaraan"
+                     Title="Pilih jenis pintu"
+                     ItemsSource="{Binding DropDownItems.Jenis_Pintu_Penyelenggaraan}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Jenis_Pintu_Penyelenggaraan}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="7" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntryJenis_Pintu_Penyelenggaraan"
+               Placeholder="Pilih Jenis Pintu Penyelenggaraan"
+               TextChanged="OnEntryTextChangedJenis_Pintu_Penyelenggaraan"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Jenis_Pintu_Penyelenggaraan}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedJenis_Pintu_Penyelenggaraan"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListJenis_Pintu_Penyelenggaraan" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedJenis_Pintu_Penyelenggaraan"
+ItemsSource="{Binding DropDownItems.Jenis_Pintu_Penyelenggaraan}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="7" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="jenis_pintu_penyelenggaraan"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+
+                        <!-- Saiz Pintu -->
+                        <Label Grid.Row="8" Text="Saiz Pintu&#10;Penyelenggaraan" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="8" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <!--<Picker Grid.Row="8" Grid.Column="2" x:Name="SaizPintuPenyelenggaraan"
+                     Title="Pilih saiz pintu"
+                     ItemsSource="{Binding DropDownItems.Saiz_Pintu_Penyelenggaraan}"
+                     ItemDisplayBinding="{Binding Item}"
+                     SelectedItem="{Binding dropDownSelectedItem.Saiz_Pintu_Penyelenggaraan}" TextColor="Black"/>-->
+                        <VerticalStackLayout Grid.Row="8" Grid.Column="2">
+
+                            <!-- Entry -->
+
+
+                            <Entry x:Name="CustomPickerEntrySaiz_Pintu_Penyelenggaraan"
+               Placeholder="Pilih Saiz Pintu Penyelenggaraan"
+               TextChanged="OnEntryTextChangedSaiz_Pintu_Penyelenggaraan"
+               AbsoluteLayout.LayoutBounds="0,0,1,40"
+               AbsoluteLayout.LayoutFlags="WidthProportional" Text="{Binding dropDownStringItem.Saiz_Pintu_Penyelenggaraan}" TextColor="Black">
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEntryTappedSaiz_Pintu_Penyelenggaraan"></TapGestureRecognizer>
+                                </Entry.GestureRecognizers>
+                            </Entry>
+
+                            <CollectionView x:Name="SuggestionListSaiz_Pintu_Penyelenggaraan" 
+IsVisible="False"
+SelectionMode="Single"
+SelectionChanged="OnSuggestionSelectedSaiz_Pintu_Penyelenggaraan"
+ItemsSource="{Binding DropDownItems.Saiz_Pintu_Penyelenggaraan}"
+BackgroundColor="White"
+HeightRequest="120"
+AbsoluteLayout.LayoutBounds="0,40,1,120"
+AbsoluteLayout.LayoutFlags="WidthProportional">
+                                <CollectionView.Shadow>
+                                    <Shadow Brush="Black" Opacity="0.2" Offset="0,2" Radius="4"/>
+                                </CollectionView.Shadow>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Item}" Padding="10" TextColor="Black"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Floating Suggestion -->
+
+
+                        </VerticalStackLayout>
+                        <Button Grid.Row="8" Grid.Column="3" ImageSource="attachment_icon.png"
+                     Command="{Binding OnAttachmentImageClicked}" CommandParameter="saiz_pintu_penyelenggaraan"
+                     BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+
+
+                        <Label Grid.Row="9" Text="Komen" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Label Text=":" Grid.Row="9" Grid.Column="1" VerticalOptions="Center" FontSize="14" TextColor="Black"/>
+                        <Editor Grid.Row="9" Grid.Column="2" x:Name="Komen" Text="{Binding mapPin.komen}" Placeholder="Komen" TextColor="Black"/>
+                    </Grid>
+                    <Grid>
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <!-- Save Button -->
+                            <Button Text="Simpan"
+  Clicked="OnSaveClicked"
+  BackgroundColor="#4CAF50"
+  TextColor="White"
+  CornerRadius="10"
+  FontAttributes="Bold"
+  HeightRequest="45"
+  WidthRequest="100"
+  Margin="0,10,0,0"/>
+                            <Button Text="Cancel"
+  Clicked="OnCancelClicked"
+  BackgroundColor="#9E9E9E"
+  TextColor="White"
+  CornerRadius="10"
+  FontAttributes="Bold"
+  HeightRequest="45"
+  WidthRequest="100"
+  Margin="10,10,0,0"/>
+                            <Button Text="Delete" IsVisible="{Binding IsUpdate}"
+  Clicked="OnDeleteClicked"
+  BackgroundColor="#F44336"
+  TextColor="White"
+  CornerRadius="10"
+  FontAttributes="Bold"
+  HeightRequest="45"
+  WidthRequest="100"
+  Margin="10,10,0,0"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+
+                </VerticalStackLayout>
+
+            </Border>
+            <Grid  
+           
+            BackgroundColor="#80000000"
+            IsVisible="{Binding IsBusy}"
+            InputTransparent="False">
+                <!-- This blocks interaction -->
+
+                <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                Color="White" 
+                WidthRequest="50"
+                HeightRequest="50"/>
+            </Grid>
+        </Grid>
+       
+    </ScrollView>
+</toolkit:Popup>
